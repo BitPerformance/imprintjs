@@ -19,7 +19,9 @@
 						return resolve("");
 					} 
 
-					var val = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+					var ipv4 = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/;
+					var local = /^ |((?:[0-9A-Za-z]{1,8}))*-((?:[0-9A-Za-z]{1,4}))*-((?:[0-9A-Za-z]{1,4}))*-((?:[0-9A-Za-z]{1,4}))*-((?:[0-9A-Za-z]{1,12}))*.((?:[0-9A-Za-z]{1,5}))| $/;
+					var val = ipv4.exec(ice.candidate.candidate) !== null ? ipv4.exec(ice.candidate.candidate)[1] : local.exec(ice.candidate.candidate) !== null ? local.exec(ice.candidate.candidate)[0] : "";
 					return resolve(val);			
 				};
 			} 
